@@ -1,0 +1,21 @@
+import {zipSync,strToU8} from 'fflate';
+import {siteFiles} from './template';
+import {normalize} from './model';
+const fontPaths=['fonts/cormorantgaramond/CormorantGaramond[wght].woff2','fonts/cormorantgaramond/CormorantGaramond-Italic[wght].woff2','fonts/cormorantgaramond/OFL.txt','fonts/manrope/Manrope[wght].woff2','fonts/manrope/OFL.txt'];
+export function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+async function asset(path){const response=await fetch(`${import.meta.env.BASE_URL}${path}`);if(!response.ok)throw new Error('Um recurso do modelo não carregou. Tente novamente.');return new Uint8Array(await response.arrayBuffer());}
+let fontPromise;
+export function previewFonts(){return fontPromise??=Promise.all([['roman',fontPaths[0]],['italic',fontPaths[1]],['sans',fontPaths[3]]].map(async([key,path])=>{const bytes=await asset(path);const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(new Blob([bytes],{type:'font/woff2'}));});return [key,data];})).then(Object.fromEntries);}
+export async function exportSite(value){
+ const c=normalize(value),files={},images=[];
+ await Promise.all(fontPaths.map(async p=>files[p]=await asset(p)));
+ for(const [i,p] of c.projects.entries()){
+  if(p.image){const match=p.image.match(/^data:image\/(png|jpeg|webp);base64,(.+)$/),extension=match[1]==='jpeg'?'jpg':match[1],path=`images/projeto-${i+1}.${extension}`;files[path]=Uint8Array.from(atob(match[2]),x=>x.charCodeAt(0));images.push(path);}
+  else{const path=`examples/${p.example}.svg`;files[path]??=await asset(path);images.push(path);}
+ }
+ const site=siteFiles(c,images);files['index.html']=strToU8(site.html);files['styles.css']=strToU8(site.css);files['script.js']=strToU8(site.js);files['.nojekyll']=strToU8('');
+ files['projeto.folio.json']=strToU8(JSON.stringify(c,null,2));
+ files['LEIA-ME.txt']=strToU8(`SEU PORTFÓLIO\n\n1. Extraia todo o ZIP em uma pasta.\n2. Abra index.html para visualizar. Mantenha fonts, images/examples, styles.css e script.js juntos.\n3. Para publicar no GitHub Pages, coloque os arquivos na pasta publicada do repositório (por exemplo docs) e selecione a branch/pasta em Settings > Pages. Em hospedagem estática, envie o conteúdo desta pasta.\n4. Para continuar no editor, importe projeto.folio.json no Folio Studio.\n\nO site é estático, funciona sem Node.js e não depende do editor. Não possui formulário, banco ou envio de mensagens. O contato abre o aplicativo de e-mail.\nAs imagens de exemplo são ilustrações de modelo. Substitua por imagens que você tem direito de usar.\nFontes locais Cormorant Garamond e Manrope: SIL Open Font License; licenças incluídas.\nModelo e código do site: Folio Studio, Felipe Westarb, MIT.\n`);
+ files['LICENSE.txt']=strToU8(`MIT License\n\nCopyright (c) 2026 Felipe Westarb\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n`);
+ const zip=zipSync(files,{level:6});const slug=c.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'meu-portfolio';download(new Blob([zip],{type:'application/zip'}),`${slug}-portfolio.zip`);
+}
