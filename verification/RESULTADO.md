@@ -27,3 +27,9 @@ Desktop 1440×1000 e celular emulado 390×844; abas de conteúdo/projetos/aparê
 Build Vite aprovado. Evidências editor-projects.png, editor-style.png, mobile-preview.png. Publicação não realizada nesta etapa. Mobile emulado; não houve teste em aparelho físico. Salvamento depende do armazenamento do navegador; exportar o JSON é a cópia portátil. Não há teste real de publicação em hospedagem externa nesta etapa.
 
 Após o acabamento de acessibilidade do menu e dos campos móveis, os testes de ZIP offline e reinício móvel foram repetidos: dois aprovados. Build final aprovado. Projeto editável limitado a 16 MB para acomodar os dados máximos de seis imagens numa ida e volta. Também foi gerado exemplo-portfolio.zip por um download real do editor.
+
+
+## Verificação para publicação — 17/10/2026
+
+Sete testes completos aprovados (13,1 s). fflate atualizado para 0.8.3 e build de produção aprovado.
+Publicação autorizada pelo autor no GitHub Pages. Pasta docs gerada por npm run pages:build. Verificação pública registrada em DEPLOY.md após a conclusão.

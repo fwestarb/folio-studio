@@ -42,7 +42,7 @@ O ZIP inclui index.html, styles.css, script.js, imagens, fontes e licenças, pro
 
 Projetos importados têm versão, tamanho e campos validados. Textos viram conteúdo, não HTML executável; URLs javascript: são omitidas. Uploads aceitam JPG, PNG e WebP e são re-encodificados localmente, com limite de resolução. A prévia usa sandbox sem acesso à origem do editor. Links externos da prévia são bloqueados para não interromper a edição e funcionam no site exportado.
 
-Limites: até seis projetos, imagens de entrada até 12 MB, saída até 1600 px e limite de dados por imagem; importação até 16 MB. Sem colaboração entre usuários, tradução automática, domínio próprio ou backend. Conteúdo padrão é ilustrativo; não representa clientes reais. O nome Folio Studio é provisório.
+Limites: até seis projetos, imagens de entrada até 12 MB, saída até 1600 px e limite de dados por imagem; importação até 16 MB. Sem colaboração entre usuários, tradução automática, domínio próprio ou backend. Conteúdo padrão é ilustrativo; não representa clientes reais. O editor se chama Folio Studio.
 
 ## Licenças
 
@@ -53,3 +53,11 @@ Aplicativo e modelo: MIT. React/Vite: MIT. fflate: MIT. Cormorant Garamond e Man
 A browser-based editorial portfolio builder. Edit content and projects, upload images, customize colors/type/layout, preview device widths and download an independent static website ZIP. Local IndexedDB drafts and portable JSON projects include images. No accounts or remote content storage. Exported HTML/CSS/JS works offline with bundled fonts and images. Up to six projects. Generated websites need no framework or build tool.
 
 O site exportado respeita a preferência de movimento reduzido do sistema; o conteúdo permanece visível. As ilustrações SVG foram criadas especificamente para este modelo.
+
+
+## GitHub Pages
+
+- Editor: https://fwestarb.github.io/folio-studio/
+- Repositório: https://github.com/fwestarb/folio-studio
+
+Para atualizar a publicação: execute `npm ci`, `npm test` e `npm run pages:build`. O último comando gera `dist/` e atualiza somente a pasta `docs/` deste projeto. Revise, faça commit e envie a branch `main`. GitHub Pages usa `main /docs`. Não edite os arquivos compilados manualmente; altere `src/` e gere a publicação novamente.

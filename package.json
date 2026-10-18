@@ -1,1 +1,22 @@
-{"name":"folio-studio","version":"1.0.0","private":true,"type":"module","scripts":{"dev":"vite --host 127.0.0.1","build":"vite build","test":"playwright test"},"dependencies":{"react":"19.3.0","react-dom":"19.3.0","fflate":"0.8.2"},"devDependencies":{"@vitejs/plugin-react":"6.1.2","vite":"8.3.4","@playwright/test":"1.64.0"}}
+{
+  "name": "folio-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "test": "playwright test",
+    "pages:build": "vite build && node scripts/prepare-pages.mjs"
+  },
+  "dependencies": {
+    "fflate": "0.8.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "vite": "8.3.4"
+  }
+}
