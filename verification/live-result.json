@@ -1,0 +1,12 @@
+{
+  "url": "https://fwestarb.github.io/folio-studio/",
+  "status": 200,
+  "editing": true,
+  "rejectsMarcaProject": true,
+  "portableFormat": "folio-studio",
+  "zipFiles": 15,
+  "zipHasIndex": true,
+  "zipHasFonts": true,
+  "errors": [],
+  "failedResponses": []
+}
