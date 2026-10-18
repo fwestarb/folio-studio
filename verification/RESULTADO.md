@@ -33,3 +33,5 @@ Após o acabamento de acessibilidade do menu e dos campos móveis, os testes de 
 
 Sete testes completos aprovados (13,1 s). fflate atualizado para 0.8.3 e build de produção aprovado.
 Publicação autorizada pelo autor no GitHub Pages. Pasta docs gerada por npm run pages:build. Verificação pública registrada em DEPLOY.md após a conclusão.
+
+A importação também rejeita projetos do Marca Studio sem substituir o rascunho. Projetos antigos do Folio sem o campo kind continuam compatíveis. Novos arquivos recebem kind=folio-studio.

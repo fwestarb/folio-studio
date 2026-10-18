@@ -30,6 +30,7 @@ test('JSON project roundtrip includes images and rejects incompatible files',asy
  await page.goto('/');await page.getByLabel('Seu nome ou marca').fill('Projeto salvo');const downloaded=page.waitForEvent('download');await page.getByRole('button',{name:'Salvar projeto',exact:true}).click();const file=await downloaded;const jsonPath=info.outputPath('projeto.json');await file.saveAs(jsonPath);
  await page.getByLabel('Seu nome ou marca').fill('Outro nome');await page.getByLabel('Arquivo de projeto').setInputFiles(jsonPath);await expect(page.getByLabel('Seu nome ou marca')).toHaveValue('Projeto salvo');
  await page.getByLabel('Arquivo de projeto').setInputFiles({name:'invalido.json',mimeType:'application/json',buffer:Buffer.from('{"version":999}')});await expect(page.getByRole('status').last()).toContainText('não é um projeto');await expect(page.getByLabel('Seu nome ou marca')).toHaveValue('Projeto salvo');
+ await page.getByLabel('Arquivo de projeto').setInputFiles({name:'outra-marca.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,kind:'marca-studio',name:'Outra marca'}))});await expect(page.getByRole('status').last()).toContainText('não é um projeto');await expect(page.getByLabel('Seu nome ou marca')).toHaveValue('Projeto salvo');
 });
 
 test('ZIP exports a standalone offline site with local fonts and working menu',async({page,browser},info)=>{
