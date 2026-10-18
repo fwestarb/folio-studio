@@ -35,3 +35,8 @@ Sete testes completos aprovados (13,1 s). fflate atualizado para 0.8.3 e build d
 Publicação autorizada pelo autor no GitHub Pages. Pasta docs gerada por npm run pages:build. Verificação pública registrada em DEPLOY.md após a conclusão.
 
 A importação também rejeita projetos do Marca Studio sem substituir o rascunho. Projetos antigos do Folio sem o campo kind continuam compatíveis. Novos arquivos recebem kind=folio-studio.
+
+
+## Download em pasta para VS Code
+
+Sete testes aprovados (21,6 s) após a alteração do ZIP. Validada uma única pasta superior com o nome do site, arquivo abrir-no-vscode.code-workspace apontando para a própria pasta e abertura real do index.html extraído dentro dela em contexto offline. Fontes, imagens e navegação mantidas. Build para GitHub Pages aprovado.
